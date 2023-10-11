@@ -14,12 +14,12 @@ library Uint256ArrayLib {
             let freeMemoryPointer := mload(0x40)
             // advanced msize()
             let newMsize := add(freeMemoryPointer, 0x20)
-            // checks if additional varibales in memory
+            // checks if additional variables in memory
             if iszero(eq(freeMemoryPointer, nextMemoryLocation)) {
                 let current
                 let previous
 
-                // makes room for _newVal by advacning other memory variables locations by 0x20 (32 bytes)
+                // creates space for a value by advancing the memory locations of other variables by 0x20 (32 bytes)
                 for { let i := nextMemoryLocation } lt(i, newMsize) { i := add(i, 0x20) } {
                     current := mload(i)
                     mstore(i, previous)
@@ -57,6 +57,7 @@ library Uint256ArrayLib {
             let current
             let previous
 
+            // creates space for a value by advancing the memory locations of other variables by 0x20 (32 bytes)
             for { let i := targetLocation } lt(i, newMsize) { i := add(i, 0x20) } {
                 current := mload(i)
                 mstore(i, previous)
