@@ -6,7 +6,7 @@ library Uint256ArrayLib {
         assembly {
             // where array is stored in memory (0x80)
             let location := arr
-            // length of array is stored at arr (4)
+            // length of array is stored at arr
             let length := mload(arr)
             // gets next available memory location
             let nextMemoryLocation := add(add(location, 0x20), mul(length, 0x20))
@@ -29,7 +29,7 @@ library Uint256ArrayLib {
             // stores new value to memory
             mstore(nextMemoryLocation, value)
             // increment length by 1
-            length := add(length, 1)
+            length := add(length, 0x1)
             // store new length value
             mstore(location, length)
             // update free memory pointer
@@ -43,7 +43,7 @@ library Uint256ArrayLib {
         assembly {
             // where array is stored in memory (0x80)
             let location := arr
-            // length of array is stored at arr (4)
+            // length of array is stored at arr
             let length := mload(arr)
             // gets next available memory location
             let nextMemoryLocation := add(add(location, 0x20), mul(length, 0x20))
@@ -66,7 +66,7 @@ library Uint256ArrayLib {
             // stores new value to memory
             mstore(targetLocation, newVal)
             // increment length by 1
-            length := add(length, 1)
+            length := add(length, 0x1)
             // store new length value
             mstore(location, length)
             // update free memory pointer
@@ -80,7 +80,7 @@ library Uint256ArrayLib {
         assembly {
             // where array is stored in memory (0x80)
             let location := arr
-            // length of array is stored at arr (4)
+            // length of array is stored at arr
             let length := mload(arr)
 
             let freeMemoryPointer := mload(0x40)
@@ -92,7 +92,7 @@ library Uint256ArrayLib {
                 mstore(i, nextVal)
             }
             // decrement length by 1
-            length := sub(length, 1)
+            length := sub(length, 0x1)
             // store new length value
             mstore(location, length)
         }
@@ -104,7 +104,7 @@ library Uint256ArrayLib {
         assembly {
             // where array is stored in memory (0x80)
             let location := arr
-            // length of array is stored at arr (4)
+            // length of array is stored at arr
             let length := mload(arr)
 
             let freeMemoryPointer := mload(0x40)
@@ -116,7 +116,7 @@ library Uint256ArrayLib {
                 mstore(i, nextVal)
             }
             // decrement length by 1
-            length := sub(length, 1)
+            length := sub(length, 0x1)
             // store new length value
             mstore(location, length)
         }
@@ -128,7 +128,7 @@ library Uint256ArrayLib {
         reversed = new uint256[](length);
         assembly {
             let forwardIdx := 0x0
-            for { let backwardIdx := length } gt(backwardIdx, 0x0) { backwardIdx := sub(backwardIdx, 0x01) } {
+            for { let backwardIdx := length } gt(backwardIdx, 0x0) { backwardIdx := sub(backwardIdx, 0x1) } {
                 mstore(add(reversed, mul(add(forwardIdx, 0x1), 0x20)), mload(add(arr, mul(backwardIdx, 0x20))))
                 forwardIdx := add(forwardIdx, 0x1)
             }
