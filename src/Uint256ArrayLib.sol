@@ -39,7 +39,7 @@ library Uint256ArrayLib {
     }
 
     // inserts element into array at index
-    function insert(uint256[] memory arr, uint256 newVal, uint256 index) public pure returns (uint256[] memory) {
+    function insert(uint256[] memory arr, uint256 value, uint256 index) public pure returns (uint256[] memory) {
         assembly {
             // where array is stored in memory (0x80)
             let location := arr
@@ -64,7 +64,7 @@ library Uint256ArrayLib {
                 previous := current
             }
             // stores new value to memory
-            mstore(targetLocation, newVal)
+            mstore(targetLocation, value)
             // increment length by 1
             length := add(length, 0x1)
             // store new length value
