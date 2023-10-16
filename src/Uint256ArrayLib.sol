@@ -160,4 +160,16 @@ library Uint256ArrayLib {
             }
         }
     }
+
+    function getIdx(uint256[] memory arr, uint256 value) public pure returns (uint256 index) {
+        assembly {
+            index := 0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+            for { let i := 0 } lt(i, mload(arr)) { i := add(i, 0x1) } {
+                if eq(value, mload(add(arr, mul(add(i, 0x1), 0x20)))) {
+                    index := i
+                    break
+                }
+            }
+        }
+    }
 }
