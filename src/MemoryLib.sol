@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.20;
 
-library Uint256ArrayLib {
+library MemoryLib {
     //** UINT256 */
     function push(uint256[] memory arr, uint256 value) public pure returns (uint256[] memory) {
         assembly {
@@ -346,4 +346,7 @@ library Uint256ArrayLib {
             }
         }
     }
+
+    //** ADDRESS */
+    // TODO: Address, Bytes, String
 }
