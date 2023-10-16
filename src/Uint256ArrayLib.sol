@@ -151,4 +151,13 @@ library Uint256ArrayLib {
         }
         return concated;
     }
+
+    function include(uint256[] memory arr, uint256 value) public pure returns (bool included) {
+        assembly {
+            for { let i := 0 } lt(i, mload(arr)) { i := add(i, 0x1) } {
+                included := eq(value, mload(add(arr, mul(add(i, 0x1), 0x20))))
+                if iszero(iszero(included)) { break }
+            }
+        }
+    }
 }
