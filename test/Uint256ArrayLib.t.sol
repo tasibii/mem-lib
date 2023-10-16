@@ -69,6 +69,15 @@ contract Uint256ArrayLibTest is Test {
         assertEq(newArr.length, arr.length);
     }
 
+    function testConcat() public {
+        uint256[] memory arr1 = setUpData();
+        uint256[] memory arr2 = setUpData();
+
+        uint256[] memory newArr = Uint256ArrayLib.concat(arr1, arr2);
+
+        assertEq(newArr.length, arr1.length + arr2.length);
+    }
+
     function _assignStorage(uint256[] memory arr, uint8 option, uint256 value) internal {
         uint256 length = arr.length;
 

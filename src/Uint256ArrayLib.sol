@@ -135,4 +135,20 @@ library Uint256ArrayLib {
         }
         return reversed;
     }
+
+    function concat(uint256[] memory from, uint256[] memory dest) public pure returns (uint256[] memory concated) {
+        uint256 length = from.length + dest.length;
+        concated = new uint256[](length);
+        assembly {
+            for { let i := 0 } lt(i, mload(from)) { i := add(i, 0x1) } {
+                mstore(add(concated, mul(add(i, 0x1), 0x20)), mload(add(from, mul(add(i, 0x1), 0x20))))
+            }
+            for { let i := 0 } lt(i, mload(dest)) { i := add(i, 0x1) } {
+                mstore(
+                    add(concated, mul(add(add(i, mload(from)), 0x1), 0x20)), mload(add(dest, mul(add(i, 0x1), 0x20)))
+                )
+            }
+        }
+        return concated;
+    }
 }
