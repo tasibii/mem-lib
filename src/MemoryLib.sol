@@ -174,6 +174,101 @@ library MemoryLib {
         }
     }
 
+    function bubbleSort(uint256[] memory input) public pure {
+        unchecked {
+            uint256 len = input.length;
+            bool swapped;
+
+            for (uint256 i = 0; i < len - 1; i++) {
+                swapped = false;
+
+                for (uint256 j = 0; j < len - i - 1; j++) {
+                    if (input[j] > input[j + 1]) {
+                        (input[j], input[j + 1]) = (input[j + 1], input[j]);
+                        swapped = true;
+                    }
+                }
+
+                if (!swapped) {
+                    break;
+                }
+            }
+        }
+    }
+
+    function insertionSort(uint256[] memory input) public pure {
+        unchecked {
+            uint256 len = input.length;
+
+            for (uint256 i = 1; i < len; i++) {
+                uint256 j = i;
+                uint256 currentValue = input[i];
+
+                while (j > 0 && input[j - 1] > currentValue) {
+                    input[j] = input[j - 1];
+                    j--;
+                }
+
+                input[j] = currentValue;
+            }
+        }
+    }
+
+    function shellSort(uint256[] memory arr) internal pure {
+        unchecked {
+            uint256 len = arr.length;
+            uint256 sublistcount = len / 2;
+
+            while (sublistcount > 0) {
+                for (uint256 start = 0; start < sublistcount; start++) {
+                    for (uint256 i = start + sublistcount; i < len; i += sublistcount) {
+                        uint256 currentValue = arr[i];
+                        int256 position = int256(i);
+
+                        while (
+                            position >= int256(sublistcount)
+                                && arr[uint256(position - int256(sublistcount))] > currentValue
+                        ) {
+                            arr[uint256(position)] = arr[uint256(position - int256(sublistcount))];
+                            position -= int256(sublistcount);
+                        }
+                        arr[uint256(position)] = currentValue;
+                    }
+                }
+                sublistcount /= 2;
+            }
+        }
+    }
+
+    function quickSort(uint256[] memory arr, int256 left, int256 right) public pure {
+        unchecked {
+            int256 i = left;
+            int256 j = right;
+            if (i == j) return;
+            uint256 pivot = arr[uint256(left + (right - left) / 2)];
+
+            while (i <= j) {
+                while (arr[uint256(i)] < pivot) {
+                    i++;
+                }
+                while (arr[uint256(j)] > pivot) {
+                    j--;
+                }
+                if (i <= j) {
+                    (arr[uint256(i)], arr[uint256(j)]) = (arr[uint256(j)], arr[uint256(i)]);
+                    i++;
+                    j--;
+                }
+            }
+            if (left < j) {
+                quickSort(arr, left, j);
+            }
+            if (i < right) {
+                quickSort(arr, i, right);
+            }
+        }
+    }
+
     //** BYTES32 */
     // allows user to push value to memory array
     function push(bytes32[] memory arr, bytes32 value) public pure returns (bytes32[] memory) {
