@@ -174,17 +174,17 @@ library MemoryLib {
         }
     }
 
-    function bubbleSort(uint256[] memory input) public pure {
+    function bubbleSort(uint256[] memory arr) public pure {
         unchecked {
-            uint256 len = input.length;
+            uint256 len = arr.length;
             bool swapped;
 
             for (uint256 i = 0; i < len - 1; i++) {
                 swapped = false;
 
                 for (uint256 j = 0; j < len - i - 1; j++) {
-                    if (input[j] > input[j + 1]) {
-                        (input[j], input[j + 1]) = (input[j + 1], input[j]);
+                    if (arr[j] > arr[j + 1]) {
+                        (arr[j], arr[j + 1]) = (arr[j + 1], arr[j]);
                         swapped = true;
                     }
                 }
@@ -196,20 +196,20 @@ library MemoryLib {
         }
     }
 
-    function insertionSort(uint256[] memory input) public pure {
+    function insertionSort(uint256[] memory arr) public pure {
         unchecked {
-            uint256 len = input.length;
+            uint256 len = arr.length;
 
             for (uint256 i = 1; i < len; i++) {
                 uint256 j = i;
-                uint256 currentValue = input[i];
+                uint256 currentValue = arr[i];
 
-                while (j > 0 && input[j - 1] > currentValue) {
-                    input[j] = input[j - 1];
+                while (j > 0 && arr[j - 1] > currentValue) {
+                    arr[j] = arr[j - 1];
                     j--;
                 }
 
-                input[j] = currentValue;
+                arr[j] = currentValue;
             }
         }
     }
