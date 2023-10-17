@@ -3,7 +3,7 @@
 pragma solidity 0.8.20;
 
 import { Test, console2 } from "forge-std/Test.sol";
-import { Uint256ArrayLib } from "src/Uint256ArrayLib.sol";
+import { MemoryLib } from "src/MemoryLib.sol";
 
 contract Uint256ArrayLibTest is Test {
     uint256 nonce = 0;
@@ -27,7 +27,7 @@ contract Uint256ArrayLibTest is Test {
         uint256[] memory arr = setUpData();
         _assignStorage(arr, 1, pushValue);
 
-        uint256[] memory newArr = Uint256ArrayLib.push(arr, pushValue);
+        uint256[] memory newArr = MemoryLib.push(arr, pushValue);
 
         assertEq(newArr.length, expect.length);
         assertEq(newArr, expect);
@@ -37,7 +37,7 @@ contract Uint256ArrayLibTest is Test {
         uint256[] memory arr = setUpData();
         _assignStorage(arr, 2, 0);
 
-        uint256[] memory newArr = Uint256ArrayLib.pop(arr);
+        uint256[] memory newArr = MemoryLib.pop(arr);
 
         assertEq(newArr.length, expect.length);
         assertEq(newArr, expect);
@@ -45,7 +45,7 @@ contract Uint256ArrayLibTest is Test {
 
     function testInsert() public {
         uint256[] memory arr = setUpData();
-        uint256[] memory newArr = Uint256ArrayLib.insert(arr, 1_000_000_000, 3);
+        uint256[] memory newArr = MemoryLib.insert(arr, 1_000_000_000, 3);
 
         assertEq(newArr.length, arr.length + 1);
         assertEq(newArr[3], 1_000_000_000);
@@ -55,7 +55,7 @@ contract Uint256ArrayLibTest is Test {
         uint256[] memory arr = setUpData();
         _assignStorage(arr, 3, 3);
 
-        uint256[] memory newArr = Uint256ArrayLib.remove(arr, 3);
+        uint256[] memory newArr = MemoryLib.remove(arr, 3);
 
         assertEq(newArr.length, arr.length - 1);
         // delete in solid is set to 0
@@ -64,7 +64,7 @@ contract Uint256ArrayLibTest is Test {
 
     function testReverse() public {
         uint256[] memory arr = setUpData();
-        uint256[] memory newArr = Uint256ArrayLib.reverse(arr);
+        uint256[] memory newArr = MemoryLib.reverse(arr);
 
         assertEq(newArr.length, arr.length);
     }
@@ -73,7 +73,7 @@ contract Uint256ArrayLibTest is Test {
         uint256[] memory arr1 = setUpData();
         uint256[] memory arr2 = setUpData();
 
-        uint256[] memory newArr = Uint256ArrayLib.concat(arr1, arr2);
+        uint256[] memory newArr = MemoryLib.concat(arr1, arr2);
 
         assertEq(newArr.length, arr1.length + arr2.length);
     }
